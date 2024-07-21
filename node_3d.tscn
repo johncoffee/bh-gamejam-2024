@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://ctcimn47kgqhl"]
+
+[ext_resource type="Script" path="res://launcher.gd" id="1_nmstc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_761yn"]
+albedo_color = Color(0.93239, 0.805595, 0.883187, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epqt0"]
+albedo_color = Color(0.914308, 0.770868, 0.928827, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bt45k"]
+albedo_color = Color(0.997298, 0.731345, 0.607473, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_botod"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldtq3"]
+albedo_color = Color(0.560784, 0.85098, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5agju"]
+albedo_color = Color(0.980139, 0.980139, 0.980139, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0s4fu"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_nmstc")
+launchSpeedX = 7.0
+launchSpeedY = 6.2
+
+[node name="kitchen" type="CSGCombiner3D" parent="."]
+material_override = SubResource("StandardMaterial3D_761yn")
+use_collision = true
+
+[node name="table top" type="CSGBox3D" parent="kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35342, -0.5, -2.25055)
+material_override = SubResource("StandardMaterial3D_epqt0")
+size = Vector3(22.9745, 1, 7.49109)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.871487, 3.17125, 6.45856)
+
+[node name="toast" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.22683, 1.57503, -0.00418901)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="toast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.0942018, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_bt45k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="toast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.0843942, 0, 0, 0)
+shape = SubResource("BoxShape3D_botod")
+
+[node name="toaster" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.171, 0.5, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="toaster"]
+transform = Transform3D(1.00002, 0, 0, 0, 1.00002, 0, 0, 0, 1.00002, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ldtq3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.00246074, -0.990599, 0.136776, 0.661469, 0.100966, 0.743145, -0.749968, 0.0923017, 0.655002, -1.363, 4.337, 6.84852)
+
+[node name="plate" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.11973, 0, 0, 0, 1, 4.56243, 0.0680152, 0)
+freeze = true
+
+[node name="plate" type="CSGBox3D" parent="plate"]
+transform = Transform3D(1.54304, 0, 0, 0, 1, 0, 0, 0, 1.2298, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_5agju")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="plate"]
+transform = Transform3D(1.54304, 0, 0, 0, 1, 0, 0, 0, 1.2298, 0, 0, 0)
+shape = SubResource("BoxShape3D_0s4fu")
