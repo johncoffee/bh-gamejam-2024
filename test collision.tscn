@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://drsxr3oxyfyyv"]
+
+[ext_resource type="Script" path="res://should-collide.gd" id="1_tq2ts"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tgkuk"]
+
+[node name="TestCollision" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.17611, 0)
+max_contacts_reported = 10
+contact_monitor = true
+script = ExtResource("1_tq2ts")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_tgkuk")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.724603, 0)
+freeze = true
+continuous_cd = true
+max_contacts_reported = 2
+contact_monitor = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="RigidBody3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+shape = SubResource("BoxShape3D_tgkuk")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.44729)
+
+[connection signal="body_entered" from="RigidBody3D" to="RigidBody3D" method="_on_body_entered"]
+[connection signal="body_entered" from="RigidBody3D2" to="RigidBody3D" method="_on_rigid_body_3d_2_body_entered"]

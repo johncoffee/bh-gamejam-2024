@@ -1,6 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctcimn47kgqhl"]
+[gd_scene load_steps=14 format=3 uid="uid://ctcimn47kgqhl"]
 
 [ext_resource type="Script" path="res://launcher.gd" id="1_nmstc"]
+[ext_resource type="AudioStream" uid="uid://blonbwedoef8g" path="res://GameJam/Audio/Impact.ogg" id="2_b2sgv"]
+[ext_resource type="Script" path="res://toast.gd" id="2_n68qc"]
+[ext_resource type="AudioStream" uid="uid://b5xwcli0nclbx" path="res://GameJam/Audio/Jazz1.ogg" id="3_8piy5"]
+[ext_resource type="AudioStream" uid="uid://cqxoup32v37qf" path="res://GameJam/Audio/Metal1.ogg" id="4_6x03p"]
+[ext_resource type="AudioStream" uid="uid://ms7nims768d0" path="res://GameJam/Audio/Toast_shoot.ogg" id="5_mnaxc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_761yn"]
 albedo_color = Color(0.93239, 0.805595, 0.883187, 1)
@@ -23,8 +28,8 @@ albedo_color = Color(0.980139, 0.980139, 0.980139, 1)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_nmstc")
-launchSpeedX = 7.0
-launchSpeedY = 6.2
+launchSpeedX = 6.6
+launchSpeedY = 6.0
 
 [node name="kitchen" type="CSGCombiner3D" parent="."]
 material_override = SubResource("StandardMaterial3D_761yn")
@@ -40,6 +45,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.871487, 3.17125, 6.45856)
 
 [node name="toast" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.22683, 1.57503, -0.00418901)
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("2_n68qc")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="toast"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.0942018, 0, 0, 0)
@@ -61,6 +69,7 @@ transform = Transform3D(-0.00246074, -0.990599, 0.136776, 0.661469, 0.100966, 0.
 
 [node name="plate" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.11973, 0, 0, 0, 1, 4.56243, 0.0680152, 0)
+can_sleep = false
 freeze = true
 
 [node name="plate" type="CSGBox3D" parent="plate"]
@@ -70,3 +79,37 @@ material_override = SubResource("StandardMaterial3D_5agju")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="plate"]
 transform = Transform3D(1.54304, 0, 0, 0, 1, 0, 0, 0, 1.2298, 0, 0, 0)
 shape = SubResource("BoxShape3D_0s4fu")
+
+[node name="sounds" type="Node" parent="."]
+
+[node name="impact" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("2_b2sgv")
+
+[node name="jazz" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("3_8piy5")
+volume_db = -5.0
+autoplay = true
+
+[node name="metal" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("4_6x03p")
+
+[node name="toast shoot" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("5_mnaxc")
+
+[node name="ui" type="HBoxContainer" parent="."]
+offset_left = 317.0
+offset_top = 205.0
+offset_right = 436.0
+offset_bottom = 228.0
+scale = Vector2(9.96, 9.96)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ui"]
+visible = false
+layout_mode = 2
+text = "Toast is served!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+drag_and_drop_selection_enabled = false
+
+[connection signal="body_entered" from="toast" to="." method="_on_toast_body_entered"]
