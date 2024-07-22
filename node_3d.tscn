@@ -193,14 +193,16 @@ mesh = SubResource("PlaneMesh_th5sr")
 surface_material_override/0 = SubResource("StandardMaterial3D_t4gqc")
 
 [node name="jam" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.334, 0)
 script = ExtResource("12_bngmk")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="jam"]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.163066, 0)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.231343, 0)
 material_override = SubResource("StandardMaterial3D_yxd03")
+size = Vector3(1, 1.36926, 1)
 
 [node name="projectile" type="RigidBody3D" parent="jam"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.256563, 0)
 max_contacts_reported = 1
 contact_monitor = true
 
@@ -208,6 +210,7 @@ contact_monitor = true
 shape = SubResource("SphereShape3D_p5nwq")
 
 [node name="jam model" type="CSGSphere3D" parent="jam/projectile"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_gq36e")
 
 [connection signal="body_entered" from="toast" to="." method="_on_toast_body_entered"]
