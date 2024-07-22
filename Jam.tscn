@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://bktfuk1dj1gcd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjrof"]
+albedo_color = Color(0.916572, 0.000680376, 0.916566, 1)
+metallic = 1.0
+roughness = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6uybp"]
+albedo_color = Color(0.866806, 0.000598939, 0.8668, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_draeg"]
+albedo_color = Color(0.897857, 0.000648032, 0.897851, 1)
+metallic = 1.0
+roughness = 0.1
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+radius = 0.7
+height = 1.2
+sides = 32
+material = SubResource("StandardMaterial3D_wjrof")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+operation = 2
+radius = 0.6
+height = 1.06336
+sides = 32
+material = SubResource("StandardMaterial3D_6uybp")
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+inner_radius = 0.594222
+outer_radius = 0.728702
+sides = 32
+material = SubResource("StandardMaterial3D_draeg")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.7)
+text = "Jam
+"
