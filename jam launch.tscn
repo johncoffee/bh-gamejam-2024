@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://ldfu0mbw218v"]
+
+[ext_resource type="Script" path="res://jam launch.gd" id="1_bh5ax"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvdcv"]
+albedo_color = Color(0.647059, 0.137255, 0.337255, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3bp5d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6ooa"]
+albedo_color = Color(0.889984, 0.153864, 0.274339, 1)
+
+[node name="JamLaunch" type="Node3D"]
+script = ExtResource("1_bh5ax")
+launchSpeedY = 8.0
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
+material_override = SubResource("StandardMaterial3D_cvdcv")
+
+[node name="projectile" type="RigidBody3D" parent="Node3D"]
+max_contacts_reported = 1
+contact_monitor = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/projectile"]
+shape = SubResource("SphereShape3D_3bp5d")
+
+[node name="jam model" type="CSGSphere3D" parent="Node3D/projectile"]
+material_override = SubResource("StandardMaterial3D_u6ooa")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.73136)
