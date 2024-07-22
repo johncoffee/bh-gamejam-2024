@@ -42,10 +42,12 @@ func _process(delta):
 			toastBread.linear_velocity = Vector3()
 			toastBread.angular_velocity = Vector3(0, 0, 0)	
 			toastBread.position = toaster.position
+			toastBread.rotation = Vector3(-0.01, 0, 0.01)
 			# reset jam
 			projectile.angular_velocity = Vector3(0, 0, 0)
 			projectile.linear_velocity = Vector3(0, 0, 0)	
 			projectile.position = $jam.position
+		
 			
 			toastLaunched = false
 			jamLaunched = false
@@ -67,7 +69,7 @@ func on_win():
 func launchToast():
 	($"sounds/toast shoot" as AudioStreamPlayer).play()
 	toastBread.linear_velocity = Vector3()
-	toastBread.angular_velocity = Vector3(0, 0, -1)	
+	toastBread.angular_velocity = Vector3(randf()*0.2, randf()*0.2, randf()-1)	
 	toastBread.position = toaster.position
 	toastBread.apply_central_impulse(Vector3(launchSpeedX,launchSpeedY,0))
 	
