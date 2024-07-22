@@ -1,0 +1,119 @@
+[gd_scene load_steps=15 format=3 uid="uid://cwcgp862fvwln"]
+
+[ext_resource type="Script" path="res://launcher.gd" id="1_rruhu"]
+[ext_resource type="Script" path="res://toast.gd" id="2_gwhul"]
+[ext_resource type="AudioStream" uid="uid://blonbwedoef8g" path="res://GameJam/Audio/Impact.ogg" id="3_gfoj8"]
+[ext_resource type="AudioStream" uid="uid://b5xwcli0nclbx" path="res://GameJam/Audio/Jazz1.ogg" id="4_s76sm"]
+[ext_resource type="AudioStream" uid="uid://cqxoup32v37qf" path="res://GameJam/Audio/Metal1.ogg" id="5_sufkl"]
+[ext_resource type="AudioStream" uid="uid://ms7nims768d0" path="res://GameJam/Audio/Toast_shoot.ogg" id="6_axyql"]
+[ext_resource type="PackedScene" uid="uid://ldfu0mbw218v" path="res://jam launch.tscn" id="7_omxyi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_761yn"]
+albedo_color = Color(0.93239, 0.805595, 0.883187, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epqt0"]
+albedo_color = Color(0.914308, 0.770868, 0.928827, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bt45k"]
+albedo_color = Color(0.997298, 0.731345, 0.607473, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_botod"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldtq3"]
+albedo_color = Color(0.560784, 0.85098, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5agju"]
+albedo_color = Color(0.980139, 0.980139, 0.980139, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0s4fu"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_rruhu")
+launchSpeedX = 6.6
+launchSpeedY = 6.0
+
+[node name="kitchen" type="CSGCombiner3D" parent="."]
+material_override = SubResource("StandardMaterial3D_761yn")
+use_collision = true
+
+[node name="table top" type="CSGBox3D" parent="kitchen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35342, -0.5, -2.25055)
+material_override = SubResource("StandardMaterial3D_epqt0")
+size = Vector3(22.9745, 1, 7.49109)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.871487, 3.17125, 6.45856)
+
+[node name="toast" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.22683, 1.57503, -0.00418901)
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("2_gwhul")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="toast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.0942018, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_bt45k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="toast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.0843942, 0, 0, 0)
+shape = SubResource("BoxShape3D_botod")
+
+[node name="toaster" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.171, 0.5, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="toaster"]
+transform = Transform3D(1.00002, 0, 0, 0, 1.00002, 0, 0, 0, 1.00002, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ldtq3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.00246074, -0.990599, 0.136776, 0.661469, 0.100966, 0.743145, -0.749968, 0.0923017, 0.655002, -1.363, 4.337, 6.84852)
+
+[node name="plate" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.11973, 0, 0, 0, 1, 4.56243, 0.0680152, 0)
+can_sleep = false
+freeze = true
+
+[node name="plate" type="CSGBox3D" parent="plate"]
+transform = Transform3D(1.54304, 0, 0, 0, 1, 0, 0, 0, 1.2298, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_5agju")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="plate"]
+transform = Transform3D(1.54304, 0, 0, 0, 1, 0, 0, 0, 1.2298, 0, 0, 0)
+shape = SubResource("BoxShape3D_0s4fu")
+
+[node name="sounds" type="Node" parent="."]
+
+[node name="impact" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("3_gfoj8")
+
+[node name="jazz" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("4_s76sm")
+volume_db = -5.0
+autoplay = true
+
+[node name="metal" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("5_sufkl")
+
+[node name="toast shoot" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource("6_axyql")
+
+[node name="ui" type="HBoxContainer" parent="."]
+offset_left = 317.0
+offset_top = 205.0
+offset_right = 436.0
+offset_bottom = 228.0
+scale = Vector2(9.96, 9.96)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ui"]
+visible = false
+layout_mode = 2
+text = "Toast is served!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+drag_and_drop_selection_enabled = false
+
+[node name="JamLaunch" parent="." instance=ExtResource("7_omxyi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0448443, -1.19209e-07, -0.0594904)
+
+[connection signal="body_entered" from="toast" to="." method="_on_toast_body_entered"]
