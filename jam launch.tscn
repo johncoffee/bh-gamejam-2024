@@ -12,7 +12,6 @@ albedo_color = Color(0.889984, 0.153864, 0.274339, 1)
 
 [node name="JamLaunch" type="Node3D"]
 script = ExtResource("1_bh5ax")
-launchSpeedY = 8.0
 
 [node name="Node3D" type="Node3D" parent="."]
 

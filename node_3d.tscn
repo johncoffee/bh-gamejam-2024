@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ctcimn47kgqhl"]
+[gd_scene load_steps=30 format=3 uid="uid://ctcimn47kgqhl"]
 
 [ext_resource type="Script" path="res://launcher.gd" id="1_nmstc"]
 [ext_resource type="PackedScene" uid="uid://cgctwocnju3v" path="res://folding_table.glb" id="2_agrf3"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c4g6220ltn81d" path="res://toaster.glb" id="5_nh5qv"]
 [ext_resource type="PackedScene" uid="uid://c8jtmdijrale2" path="res://Club_Mate_pbr.glb" id="10_osuyf"]
 [ext_resource type="Texture2D" uid="uid://p7eb1l74sqep" path="res://Kitch.jpg" id="11_wmarr"]
+[ext_resource type="Script" path="res://jam launch.gd" id="12_bngmk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d0kkl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -57,10 +58,19 @@ roughness = 0.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t4gqc"]
 albedo_texture = ExtResource("11_wmarr")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yxd03"]
+albedo_color = Color(0.647059, 0.137255, 0.337255, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_p5nwq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gq36e"]
+albedo_color = Color(0.889984, 0.153864, 0.274339, 1)
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_nmstc")
-launchSpeedX = 6.6
-launchSpeedY = 6.0
+launchSpeedX = 7.1
+launchSpeedY = 7.0
+launchJamSpeedY = 7.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_h6kxu")
@@ -181,5 +191,23 @@ transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -5.073
 transform = Transform3D(18.58, 0, 0, 0, -8.12158e-07, -18.58, 0, 18.58, -8.12158e-07, 0, 1.554, -14.535)
 mesh = SubResource("PlaneMesh_th5sr")
 surface_material_override/0 = SubResource("StandardMaterial3D_t4gqc")
+
+[node name="jam" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("12_bngmk")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="jam"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.163066, 0)
+material_override = SubResource("StandardMaterial3D_yxd03")
+
+[node name="projectile" type="RigidBody3D" parent="jam"]
+max_contacts_reported = 1
+contact_monitor = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="jam/projectile"]
+shape = SubResource("SphereShape3D_p5nwq")
+
+[node name="jam model" type="CSGSphere3D" parent="jam/projectile"]
+material_override = SubResource("StandardMaterial3D_gq36e")
 
 [connection signal="body_entered" from="toast" to="." method="_on_toast_body_entered"]
